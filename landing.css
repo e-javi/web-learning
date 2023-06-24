@@ -15,26 +15,30 @@
  .flashcard * {
     width: 50%;
     height: 100%;
-    background-color: tan;
+    background-color: rgb(216, 193, 162);
     color: black;
     margin-bottom: 0%;
 }
 
 div{
-    margin-top: 200px;
     background-color: #e0e0e0;
     transform: translate(25%, 0%);
-    margin-bottom: 200px;
 }
 
 .chars{
     font-size: xx-large;
+    margin-top: 200px;
 }
 .pinyin{
     font-size: medium;
 }
 .def{
     font-size: medium;
+}
+
+.card_buttons{
+    text-align: left;
+    margin-top: 50px;
 }
 
 p {
