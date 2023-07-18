@@ -49,11 +49,11 @@ div{
 .chars{
     font-size: xx-large;
     padding-top: 25px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
    }
 .pinyin{
     font-size: medium;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
 .def{
     font-size: medium;
