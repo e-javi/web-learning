@@ -22,12 +22,55 @@ var current_deck = 0;
 var deck_length = deck_1.length;
 
 //Init with event listener
-var myForm = document.getElementById("submit_csv");
-var cur_csv = document.getElementById("csvfile");
-myForm.addEventListener("submit", function (e) {
+const myForm = document.getElementById("submit_csv");
+const cur_csv = document.getElementById("csvfile");
+
+function csvToArray(str, delimiter = ",") {
+
+    const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+    const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+
+    // Map the rows  
+    const arr = rows.map(function (row) {
+      const values = row.split(delimiter);
+      const el = headers.reduce(function (object, header, index) {
+        object[header] = values[index];
+        return object;
+      }, {});
+      return el;
+    });
+
+    return arr;
+  }
+/*
+  myForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    console.log("Form Submitted");
-});
+    const input = cur_csv.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const text = e.target.result;
+      const data = csvToArray(text);
+      console.log(data);
+      //document.write(JSON.stringify(data));
+    };
+    
+    reader.readAsText(input);
+  });
+*/
+function upload_csv(){
+    const input = cur_csv.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const text = e.target.result;
+      const data = csvToArray(text);
+      console.log(data);
+      //document.write(JSON.stringify(data));
+    };
+    
+    reader.readAsText(input);
+}
 
 function nextCard(){
     current_card = (current_card === deck_length - 1) ? 0 : current_card ++;
