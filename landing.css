@@ -16,12 +16,14 @@ h2{
     padding-top: 100px;
 }
 .name *{
-    text-align: left;
+    text-align: right;
     color: #f85441;
     background-color: #e0e0e0;
     font-size: medium;
     text-shadow: none;
     letter-spacing: normal;
+    padding-top: 0px;
+    padding-right: 10px;
 }
 
 .flashcard{
@@ -70,4 +72,25 @@ div{
 .card_buttons *{
     background-color: #f46050;
     color: black;
+}
+
+#csv_insert_line {
+    text-align: left;
+    font-size: 20px;
+    color: black;
+    text-shadow: none;
+    letter-spacing: normal;
+}
+
+#submit_csv {
+    text-align: left;
+    font-size: small;
+    padding-bottom: -100px;
+    margin-left: 10px;
+}
+
+#import_button {
+    margin-top: 10px;
+    font-size: small;
+    background-color: #f46050;
 }

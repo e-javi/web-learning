@@ -21,32 +21,13 @@ var current_card = 0;
 var current_deck = 0;
 var deck_length = deck_1.length;
 
-//Init?
-//  C:\Users\elimj\Desktop\web-learning\vocab
-
-//set up required modules to read through directory
-var fs = require('fs');
-var path = require('path');
-var location = 'C:\\Users\\elimj\\Desktop\\web-learning\\vocab';
-
-// Loop through all the files in the temp directory
-fs.readdir(location, function (err, files) {
-    if (err) {
-      console.error("Could not list the directory.", err);
-      process.exit(1);
-    }
-  
-    files.forEach(function (file, index) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            const text = e.target.result;
-            const array = csvToArray(text);
-            document.write(JSON.stringify(array));
-        };
-        reader.readAsText(file)
-        
-    });
-  });
+//Init with event listener
+var myForm = document.getElementById("submit_csv");
+var cur_csv = document.getElementById("csvfile");
+myForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    console.log("Form Submitted");
+});
 
 function nextCard(){
     current_card = (current_card === deck_length - 1) ? 0 : current_card ++;
