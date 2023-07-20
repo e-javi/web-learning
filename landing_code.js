@@ -16,12 +16,7 @@ var deck_1 = [card1, card2, card3];
 //Library of decks
 var library = [];
 
-//Tracking
-var current_card = 0;
-var current_deck = 0;
-var deck_length = deck_1.length;
-
-//Init with event listener
+//Init
 const myForm = document.getElementById("submit_csv");
 const cur_csv = document.getElementById("csvfile");
 
@@ -58,7 +53,20 @@ function csvToArray(str, delimiter = ",") {
     reader.readAsText(input);
   });
 */
+
+const fileInput = document.getElementById('csvfile');
+fileInput.onchange = () => {
+  const selectedFile = fileInput.files[0];
+  console.log(selectedFile);
+  console.log("COMPLETE-----yay");
+}
+/*
 function upload_csv(){
+
+
+
+
+  
     const input = cur_csv.files[0];
     const reader = new FileReader();
 
@@ -67,11 +75,12 @@ function upload_csv(){
       const data = csvToArray(text);
       console.log(data);
       //document.write(JSON.stringify(data));
-    };
+    };   
     
     reader.readAsText(input);
+    
 }
-
+*/
 function nextCard(){
     current_card = (current_card === deck_length - 1) ? 0 : current_card ++;
     
