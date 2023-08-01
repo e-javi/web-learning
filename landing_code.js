@@ -10,6 +10,7 @@ var card1 = new Card("中文", "Chinese language", "zhōng wén");
 var card2 = new Card("你好", "Hello", "nǐ hǎo")
 var card3 = new Card("再见", "Goodbye", "zái jián")
 
+
 //Decks
 var deck_1 = [card1, card2, card3];
 
@@ -37,10 +38,11 @@ function csvToArray(str, delimiter = ",") {
 
     return arr;
   }
-/*
+
   myForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const input = cur_csv.files[0];
+    console.log(input);//added this
     const reader = new FileReader();
 
     reader.onload = function (e) {
@@ -52,14 +54,8 @@ function csvToArray(str, delimiter = ",") {
     
     reader.readAsText(input);
   });
-*/
 
-const fileInput = document.getElementById('csvfile');
-fileInput.onchange = () => {
-  const selectedFile = fileInput.files[0];
-  console.log(selectedFile);
-  console.log("COMPLETE-----yay");
-}
+
 /*
 function upload_csv(){
 
