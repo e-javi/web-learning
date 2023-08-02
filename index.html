@@ -2,7 +2,7 @@
 <html lang="en">
   <link rel="stylesheet" href="landing.css">
   <head>
-    <script type="text/javascript" src="landing_code.js"></script>
+    <script type="text/javascript" src="landing_code.js" async></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,9 +15,9 @@
 
 
     <div class="flashcard">
-      <p class="chars">汉字</p>
-      <p class="pinyin">Pinyin</p>
-      <p class="def">Definition</p>
+      <p id="chars">汉字</p>
+      <p id="pinyin">Pinyin</p>
+      <p id="def">Definition</p>
     </div>
     <div class="card_buttons">
     <input type="button" value="Previous"/>     <input type="button" value="Next" onclick="nextCard()"/>
@@ -30,7 +30,7 @@
     <form id="submit_csv">
     <input type="file" id="csvfile" accept=".csv" />
     <br />
-    <input type="submit" value="Import" id="import_button" />
+    <input type="submit" onclick="pressed(); return false;" value="Import" id="import_button" />
     </form>
 
     <div class="name">

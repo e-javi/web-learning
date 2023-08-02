@@ -42,22 +42,23 @@ h2{
     margin-bottom: 0px;
     transform: translate(50%, 0%);
     box-shadow: 5px 5px #6D5A72;
+    min-height: 46px;
     }
 
 div{
     background-color: #e0e0e0;
 }
 
-.chars{
+ #chars {
     font-size: xx-large;
     padding-top: 25px;
     padding-bottom: 10px;
    }
-.pinyin{
+ #pinyin {
     font-size: medium;
     padding-bottom: 10px;
 }
-.def{
+ #def {
     font-size: medium;
     margin-top: -5px;
     padding-bottom: 25px;
