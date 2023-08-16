@@ -14,14 +14,14 @@
     <h1><b>学中文 App</b><h1>
 
 
-    <div class="flashcard">
+    <div class="flashcard" id="flashcard_id">
       <p id="chars">汉字</p>
       <p id="pinyin">Pinyin</p>
       <p id="def">Definition</p>
     </div>
     <div class="card_buttons">
-    <input type="button" value="Previous"/>     <input type="button" value="Next" onclick="nextCard()"/>
-      <input type="button" value="Flip"/>   <input type="button" value="Reset">
+    <input type="button" value="Previous" onclick="prev_card()"/>     <input type="button" value="Next" onclick="next_card()"/>
+      <input type="button" value="Flip" onclick="flip_card()"/>   <input type="button" value="Reset">
       <input type="button" value="Shuffle Deck"/>
     </div>
 
@@ -30,7 +30,7 @@
     <form id="submit_csv">
     <input type="file" id="csvfile" accept=".csv" />
     <br />
-    <input type="submit" onclick="pressed(); return false;" value="Import" id="import_button" />
+    <input type="submit" onclick="csv_submit(); return false;" value="Import" id="import_button" />
     </form>
 
     <div class="name">

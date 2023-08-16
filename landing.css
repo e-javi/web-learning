@@ -42,8 +42,9 @@ h2{
     margin-bottom: 0px;
     transform: translate(50%, 0%);
     box-shadow: 5px 5px #6D5A72;
-    min-height: 46px;
-    }
+    min-height: 33%;
+    max-height: 33%;
+    }    
 
 div{
     background-color: #e0e0e0;
@@ -65,7 +66,7 @@ div{
 }
 
 .card_buttons{
-    padding-top: 25px;
+    padding-top: 15px;
     font-size: large;
     padding-bottom: 25px;
 }
