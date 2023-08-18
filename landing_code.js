@@ -8,8 +8,10 @@ function Card(chinese, pinyin, def) {
 
 //global deck var
 var library = [];
+var temp_deck = [];
 var card_no = 0;
 var front = true;
+var shuffle_enabled = false;
 
 //Init
 const myForm = document.getElementById("submit_csv");
@@ -27,7 +29,20 @@ function csv_submit() {
     }
 }
 
+function display_front(array) {
+  document.getElementById("chars").innerHTML = array[card_no].chinese;
+  document.getElementById("pinyin").innerHTML = "&nbsp";
+  document.getElementById("def").innerHTML = "&nbsp";
+}
+
+function display_back(array) {
+  document.getElementById("chars").innerHTML = "&nbsp";
+  document.getElementById("pinyin").innerHTML = array[card_no].pinyin;
+  document.getElementById("def").innerHTML = array[card_no].def;
+}
+
 function load_deck(cur_deck) {
+    card_no = 0;
     var loaded_deck = cur_deck;
     loaded_deck.shift(); //remove first line of headers
     //remove return escape chars
@@ -39,11 +54,10 @@ function load_deck(cur_deck) {
     for(i in loaded_deck) {
       let arr = loaded_deck[i].split(",");
       library.push(new Card(arr[0], arr[1], arr[2]));
+      temp_deck.push(new Card(arr[0], arr[1], arr[2]));
     }
 
-    document.getElementById("chars").innerHTML = library[0].chinese;
-    document.getElementById("pinyin").innerHTML = "&nbsp";
-    document.getElementById("def").innerHTML = "&nbsp";
+    display_front(library);
 }
 
 function next_card(){
@@ -54,9 +68,12 @@ function next_card(){
     card_no = 0;
   }
   front = true;
-  document.getElementById("chars").innerHTML = library[card_no].chinese;
-  document.getElementById("pinyin").innerHTML = "&nbsp";
-  document.getElementById("def").innerHTML = "&nbsp";
+  if(shuffle_enabled){
+    display_front(temp_deck);
+  }
+  else {
+    display_front(library);
+  }
 }
 
 function prev_card() {
@@ -64,9 +81,12 @@ function prev_card() {
     card_no--;
   }
   front = true;
-  document.getElementById("chars").innerHTML = library[card_no].chinese;
-  document.getElementById("pinyin").innerHTML = "&nbsp";
-  document.getElementById("def").innerHTML = "&nbsp";
+  if(shuffle_enabled){
+    display_front(temp_deck);
+  }
+  else {
+    display_front(library);
+  }
 }
 
 function flip_card() {
@@ -74,14 +94,41 @@ function flip_card() {
   var element = document.getElementById("chars");
   if(front) {
     front = false;
-    document.getElementById("chars").innerHTML = "&nbsp";
-    document.getElementById("pinyin").innerHTML = library[card_no].pinyin;
-    document.getElementById("def").innerHTML = library[card_no].def;
+    if(shuffle_enabled) {
+      display_back(temp_deck);
+    }
+    else {
+      display_back(library);
+    }
+    
   }
   else {
     front = true;
-    document.getElementById("chars").innerHTML = library[card_no].chinese;
-    document.getElementById("pinyin").innerHTML = "&nbsp";
-    document.getElementById("def").innerHTML = "&nbsp";
+    if(shuffle_enabled){
+      display_front(temp_deck);
+    }
+    else {
+      display_front(library);
+    }
   }
+}
+
+function reset_deck() {
+  card_no = 0;
+  front = true;
+  shuffle_enabled = false;
+  display_front(library);
+}
+
+function shuffle() {
+  front = true;
+  shuffle_enabled = true;
+  card_no = 0;
+  for (var i = temp_deck.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = temp_deck[i];
+    temp_deck[i] = temp_deck[j];
+    temp_deck[j] = temp;
+  }
+  display_front(temp_deck);
 }
