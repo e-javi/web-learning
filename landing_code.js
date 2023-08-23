@@ -12,6 +12,8 @@ var temp_deck = [];
 var card_no = 0;
 var front = true;
 var shuffle_enabled = false;
+var back_first = false;
+var loaded = false;
 
 //Init
 const myForm = document.getElementById("submit_csv");
@@ -56,7 +58,7 @@ function load_deck(cur_deck) {
       library.push(new Card(arr[0], arr[1], arr[2]));
       temp_deck.push(new Card(arr[0], arr[1], arr[2]));
     }
-
+    loaded = true;
     display_front(library);
 }
 
@@ -67,25 +69,48 @@ function next_card(){
   else {
     card_no = 0;
   }
-  front = true;
-  if(shuffle_enabled){
-    display_front(temp_deck);
+  if(back_first == false) {
+    front = true;
+    if(shuffle_enabled){
+      display_front(temp_deck);
+    }
+    else {
+      display_front(library);
+    }
   }
   else {
-    display_front(library);
+    front = false;
+    if(shuffle_enabled){
+      display_back(temp_deck);
+    }
+    else {
+      display_back(library);
+    }
   }
+  
 }
 
 function prev_card() {
   if(card_no > 0) {
     card_no--;
   }
-  front = true;
-  if(shuffle_enabled){
-    display_front(temp_deck);
+  if(back_first == false) {
+    front = true;
+    if(shuffle_enabled){
+      display_front(temp_deck);
+    }
+    else {
+      display_front(library);
+    }
   }
   else {
-    display_front(library);
+    front = false;
+    if(shuffle_enabled){
+      display_back(temp_deck);
+    }
+    else {
+      display_back(library);
+    }
   }
 }
 
@@ -115,13 +140,18 @@ function flip_card() {
 
 function reset_deck() {
   card_no = 0;
-  front = true;
   shuffle_enabled = false;
-  display_front(library);
+  if(back_first == false) {
+    front = true;
+    display_front(library);
+  }
+  else {
+    front = false;
+    display_back(library);
+  }
 }
 
 function shuffle() {
-  front = true;
   shuffle_enabled = true;
   card_no = 0;
   for (var i = temp_deck.length - 1; i > 0; i--) {
@@ -130,5 +160,25 @@ function shuffle() {
     temp_deck[i] = temp_deck[j];
     temp_deck[j] = temp;
   }
-  display_front(temp_deck);
+  if(back_first == false) {
+    front = true;
+    display_front(temp_deck);
+  }
+  else {
+    front = false;
+    display_back(temp_deck);
+  }  
+}
+
+function reverse_display(checkbox) {
+  if(checkbox.checked == true && loaded) {
+    back_first = true;
+    if(shuffle_enabled) {display_back(temp_deck);}
+    else {display_back(library);}
+  }
+  else {
+    back_first = false;
+    if(shuffle_enabled) {display_front(temp_deck);}
+    else {display_front(library);}
+  }
 }

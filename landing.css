@@ -72,8 +72,18 @@ div{
 }
 
 .card_buttons *{
-    background-color: #f46050;
+    background-color: gray;
     color: black;
+}
+
+#def_first_label {
+    text-align: right;
+    font-size: large;
+    color: black;
+    letter-spacing: normal;
+    text-shadow: none;
+    background-color: none;
+    background-color: #e0e0e0;
 }
 
 #csv_insert_line {
@@ -94,5 +104,14 @@ div{
 #import_button {
     margin-top: 10px;
     font-size: small;
+    background-color: gray;
+}
+
+.card_buttons>input:hover {
     background-color: #f46050;
 }
+
+#import_button:hover {
+    background-color: #f46050;
+}
+
