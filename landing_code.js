@@ -11,9 +11,9 @@ var library = [];
 var temp_deck = [];
 var card_no = 0;
 var front = true;
-var shuffle_enabled = false;
 var back_first = false;
 var loaded = false;
+var temp_deck_enabled = false;
 
 //Init
 const myForm = document.getElementById("submit_csv");
@@ -52,7 +52,6 @@ function load_deck(cur_deck) {
       let text = loaded_deck[i].substr(0, loaded_deck[i].length - 1);
       loaded_deck[i] = text;
     }
-
     for(i in loaded_deck) {
       let arr = loaded_deck[i].split(",");
       library.push(new Card(arr[0], arr[1], arr[2]));
@@ -63,15 +62,15 @@ function load_deck(cur_deck) {
 }
 
 function next_card(){
-  if(card_no < library.length) {
-    card_no++;
+  if((!temp_deck_enabled && card_no < library.length - 1) || (temp_deck_enabled && card_no < temp_deck.length - 1)) {
+    card_no ++;
   }
   else {
     card_no = 0;
   }
   if(back_first == false) {
     front = true;
-    if(shuffle_enabled){
+    if(temp_deck_enabled){
       display_front(temp_deck);
     }
     else {
@@ -80,7 +79,7 @@ function next_card(){
   }
   else {
     front = false;
-    if(shuffle_enabled){
+    if(temp_deck_enabled){
       display_back(temp_deck);
     }
     else {
@@ -96,7 +95,7 @@ function prev_card() {
   }
   if(back_first == false) {
     front = true;
-    if(shuffle_enabled){
+    if(temp_deck_enabled){
       display_front(temp_deck);
     }
     else {
@@ -105,7 +104,7 @@ function prev_card() {
   }
   else {
     front = false;
-    if(shuffle_enabled){
+    if(temp_deck_enabled){
       display_back(temp_deck);
     }
     else {
@@ -115,32 +114,38 @@ function prev_card() {
 }
 
 function flip_card() {
-  var parent = document.getElementById("flashcard_id");
-  var element = document.getElementById("chars");
-  if(front) {
-    front = false;
-    if(shuffle_enabled) {
-      display_back(temp_deck);
+  if(temp_deck.length > 0) {
+    var parent = document.getElementById("flashcard_id");
+    var element = document.getElementById("chars");
+    if(front) {
+      front = false;
+      if(temp_deck_enabled) {
+        display_back(temp_deck);
+      }
+      else {
+        display_back(library);
+      }
+      
     }
     else {
-      display_back(library);
+      front = true;
+      if(temp_deck_enabled){
+        display_front(temp_deck);
+      }
+      else {
+        display_front(library);
+      }
     }
-    
-  }
-  else {
-    front = true;
-    if(shuffle_enabled){
-      display_front(temp_deck);
     }
-    else {
-      display_front(library);
-    }
-  }
 }
 
 function reset_deck() {
   card_no = 0;
-  shuffle_enabled = false;
+  temp_deck_enabled = false;
+  //deep copy temp deck to cover potential loss of cards
+  for(i in library) {
+    temp_deck[i] = library[i];
+  }
   if(back_first == false) {
     front = true;
     display_front(library);
@@ -152,7 +157,7 @@ function reset_deck() {
 }
 
 function shuffle() {
-  shuffle_enabled = true;
+  temp_deck_enabled = true;
   card_no = 0;
   for (var i = temp_deck.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
@@ -171,14 +176,31 @@ function shuffle() {
 }
 
 function reverse_display(checkbox) {
-  if(checkbox.checked == true && loaded) {
-    back_first = true;
-    if(shuffle_enabled) {display_back(temp_deck);}
-    else {display_back(library);}
+  if(temp_deck.length > 0) {
+    if(checkbox.checked == true && loaded) {
+        back_first = true;
+        if(temp_deck_enabled) {display_back(temp_deck);}
+        else {display_back(library);}
+      }
+      else {
+        back_first = false;
+        if(temp_deck_enabled) {display_front(temp_deck);}
+        else {display_front(library);}
+      }
+  }
+}
+
+function remove_card() {
+  temp_deck_enabled = true;
+  if(temp_deck.length == 1) {
+    document.getElementById("chars").innerHTML = "Reset Deck";
+    document.getElementById("pinyin").innerHTML = "&nbsp";
+    document.getElementById("def").innerHTML = "&nbsp";
+    temp_deck.splice(card_no, 1);
   }
   else {
-    back_first = false;
-    if(shuffle_enabled) {display_front(temp_deck);}
-    else {display_front(library);}
+    temp_deck.splice(card_no, 1);
+    card_no -= 1;
+    next_card();
   }
 }
